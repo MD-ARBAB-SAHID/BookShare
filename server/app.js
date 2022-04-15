@@ -52,6 +52,7 @@ app.use((err, req, res, next) => {
 });
 
 try {
+  console.log(process.env.MONGO_URL);
   mongoose
     .connect(
       process.env.MONGO_URL,
