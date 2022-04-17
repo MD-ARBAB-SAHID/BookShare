@@ -12,6 +12,12 @@ const inputReducerFunction = (state, action) => {
       isTouched: state.isTouched,
     };
   }
+  if (action.type === "INTIALVALUE") {
+    return {
+      value: action.value,
+      isTouched: state.isTouched,
+    };
+  }
   if (action.type === "BLUR") {
     return {
       value: state.value,
@@ -30,6 +36,14 @@ const useInputValidator = (validateInput) => {
   );
   const enteredInputIsValid = validateInput(inputState.value);
   const inputIsInvalid = inputState.isTouched && !enteredInputIsValid;
+  
+  const setInitialValue = (value) => {
+    dispatchFunction({
+      type: "INTIALVALUE",
+      value,
+    })
+  }
+
   const inputChangeHandler = (event) => {
     dispatchFunction({
       type: "INPUT",
@@ -56,6 +70,7 @@ const useInputValidator = (validateInput) => {
     inputResetHandler,
     inputChangeHandler,
     inputBlurHanlder,
+    setInitialValue,
   }
 };
 

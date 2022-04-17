@@ -1,100 +1,50 @@
 import styles from "./SignUp.module.css";
-import { useHistory } from "react-router-dom"
-import useInputValidator from "../../../hooks/auth-form";
+import { useState } from "react";
+import SignUpWithEmail from "./SignUpWithEmail/SignUpWithEmail";
+import SignUpWithPhone from "../SignInForm/SignInWithPhone/SignInWithPhone";
+import { FcGoogle } from "react-icons/fc";
+import { FaMobileAlt } from "react-icons/fa";
 
 const SignUp = () => {
-  const history = useHistory();
-  const {
-    enteredInput: email,
-    enteredInputIsValid: emailIsValid,
-    inputIsInvalid: emailIsInvalid,
-    inputResetHandler: emailReset,
-    inputChangeHandler: emailChangeHandler,
-    inputBlurHanlder: emailBlurHandler,
-  } = useInputValidator((input) => input.includes("@"));
+  const [emailSignIn, setEmailSignIn] = useState(true);
+  const [phoneSignIn, setEPhoneSignIn] = useState(false);
+  const [googleSignIn, setGoogleSignIn] = useState(false);
 
-  const {
-    enteredInput: password,
-    enteredInputIsValid: passwordIsValid,
-    inputIsInvalid: passwordIsInvalid,
-    inputResetHandler: passwordReset,
-    inputChangeHandler: passwordChangeHandler,
-    inputBlurHanlder: passwordBlurHandler,
-  } = useInputValidator((input) => input.length >= 8);
-
-  const {
-    enteredInput: cpassword,
-    enteredInputIsValid: cpasswordIsValid,
-    inputIsInvalid: cpasswordIsInvalid,
-    inputResetHandler: cpasswordReset,
-    inputChangeHandler: cpasswordChangeHandler,
-    inputBlurHanlder: cpasswordBlurHandler,
-  } = useInputValidator((input) => input === password);
-
-  const formSubmitHandler = (event) => {
-    event.preventDefault();
-    const signInDetails = {
-      email,
-      password, 
-      cpassword
-    };
-    try {
-      // api call kare
-    } catch(err) {
-      emailReset();
-      passwordReset();
-      cpasswordReset();
-    }
+  const useEmailSignIn = () => {
+    setEmailSignIn(true);
+    setEPhoneSignIn(false);
+    setGoogleSignIn(false);
   };
-
-  let formIsInvalid = true;
-  if(emailIsValid && passwordIsValid && cpasswordIsValid) {
-    formIsInvalid = false;
-  }
+  const usePhoneSignIn = () => {
+    setEmailSignIn(false);
+    setEPhoneSignIn(true);
+    setGoogleSignIn(false);
+  };
+  const useGoogleSignIn = () => {
+    setEmailSignIn(false);
+    setEPhoneSignIn(false);
+    setGoogleSignIn(true);
+  };
   return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={formSubmitHandler}>
+      <div className={styles.form}>
         <div className={styles.heading}>Sign up</div>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={emailChangeHandler}
-            onBlur={emailBlurHandler}
-          />
-          {emailIsInvalid && <p>Please enter a valid email</p>}
+        {emailSignIn && <SignUpWithEmail />}
+        {phoneSignIn && <SignUpWithPhone />}
+
+        <div className={styles.iconDiv}>
+          {!googleSignIn && (
+            <button onClick={useGoogleSignIn}>
+              <FcGoogle />
+            </button>
+          )}
+          {!phoneSignIn && (
+            <button onClick={usePhoneSignIn}>
+              <FaMobileAlt />
+            </button>
+          )}
         </div>
-        <div>
-          <label htmlFor="email">Password</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={passwordChangeHandler}
-            onBlur={passwordBlurHandler}
-          />
-          {passwordIsInvalid && <p>Please use the correct password</p>}
-        </div>
-        <div>
-          <label htmlFor="email">Confirm Password</label>
-          <input
-            id="cpassword"
-            type="password"
-            value={cpassword}
-            onChange={cpasswordChangeHandler}
-            onBlur={cpasswordBlurHandler}
-          />
-          {cpasswordIsInvalid && <p>password is not same</p>}
-        </div>
-        <div className={styles.button}>
-          <button type="submit" disabled={formIsInvalid}>
-            Sign up
-          </button>
-        </div>
-          <button onClick={() => {history.push("/login")}}>or Login</button>
-      </form>
+      </div>
     </div>
   );
 };
