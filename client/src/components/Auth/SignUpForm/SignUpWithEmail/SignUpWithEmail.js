@@ -91,7 +91,6 @@ const SignUpWithEmail = () => {
             Sign up
           </button>
         </div>
-          <button onClick={() => {history.push("/login")}}>or Login</button>
       </form>
   );
 };

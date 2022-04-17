@@ -45,7 +45,7 @@ const GetOtp = (props) => {
            submit
           </button>
         </div>
-        <div onClick={changePhoneHandler}>Change phone number</div>
+        <div onClick={changePhoneHandler} style={{cursor: "pointer"}}>Change phone number</div>
       </form>
   );
 };

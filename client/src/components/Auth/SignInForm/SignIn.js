@@ -5,53 +5,37 @@ import { FaMobileAlt } from "react-icons/fa"
 import SignInWithEmail from "./SignInWithEmail/SignInWithEmail";
 import SignInWithPhone from "./SignInWithPhone/SignInWithPhone";
 const Login = () => {
-  const [signInMethods, setSignInMethods] = useState(() => {
-    const method = [3];
-    // 0 email
-    // 1 phone
-    // 2 gmail
-    method[0] = true; 
-    method[1] = false;
-    method[2] = false;
-    return method;
-  });
-  console.log(signInMethods);
-  const useEmail = () => {
-    setSignInMethods(prev => {
-      prev[0] = true;
-      prev[1] = false;
-      prev[2] = false;
-      return prev;
-    })
+  const [emailSignIn, setEmailSignIn] = useState(true);
+  const [phoneSignIn, setEPhoneSignIn] = useState(false);
+  const [googleSignIn, setGoogleSignIn] = useState(false);
+  
+  const useEmailSignIn = () => {
+    setEmailSignIn(true);
+    setEPhoneSignIn(false);
+    setGoogleSignIn(false);
   }
-  const useGmail = () => {
-    setSignInMethods(prev => {
-      prev[0] = false;
-      prev[1] = false;
-      prev[2] = true;
-      return prev;
-    })
+  const usePhoneSignIn = () => {
+    setEmailSignIn(false);
+    setEPhoneSignIn(true);
+    setGoogleSignIn(false);
   }
-  const usePhone = () => {
-    setSignInMethods(prev => {
-      prev[0] = false;
-      prev[1] = true;
-      prev[2] = false;
-      return prev;
-    })
-    console.log(signInMethods);
+  const useGoogleSignIn = () => {
+    setEmailSignIn(false);
+    setEPhoneSignIn(false);
+    setGoogleSignIn(true);
   }
+
   return (
     <div className={styles.container}>
       <div className={styles.form} >
         <div className={styles.heading}>Sign in</div>
-        {/* {signInMethods[0] && <SignInWithEmail/>} */}
-        {signInMethods[0] && <SignInWithPhone/>}
+        {emailSignIn && <SignInWithEmail/>}
+        {phoneSignIn && <SignInWithPhone/>}
 
         
         <div className={styles.iconDiv}>
-         <button onClick={useGmail}><FcGoogle /></button> 
-         <button onClick={usePhone}><FaMobileAlt /></button> 
+        { !googleSignIn && <button onClick={useGoogleSignIn}><FcGoogle /></button>} 
+        { !phoneSignIn && <button onClick={usePhoneSignIn}><FaMobileAlt /></button> }
         </div>        
       </div>
     </div>

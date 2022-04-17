@@ -22,6 +22,18 @@
     font-size: 2.5rem;
     padding: 20px 0;
   }
+
+  .form .iconDiv {
+    /* background-color: red; */
+  }
+
+  .form .iconDiv button {
+    font-size: 2rem;
+    background-color: transparent;
+    border: none;
+    padding: .5rem 1rem;
+    cursor: pointer;
+  }
   
   
   @media screen and (max-width: 1300px) {

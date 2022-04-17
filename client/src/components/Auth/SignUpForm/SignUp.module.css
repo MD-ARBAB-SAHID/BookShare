@@ -37,6 +37,18 @@
   cursor:grab;
 }
 
+.form .iconDiv {
+  /* background-color: red; */
+}
+
+.form .iconDiv button {
+  font-size: 2rem;
+  background-color: transparent;
+  border: none;
+  padding: .5rem 1rem;
+  cursor: pointer;
+}
+
 .button button:disabled,
 .button button:disabled:hover,
 .button button:disabled:active {
