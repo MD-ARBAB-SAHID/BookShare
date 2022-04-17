@@ -61,6 +61,7 @@ const addBook = async (req, res, next) => {
       branch === "CE" ||
       branch === "BT" ||
       branch === "TE" ||
+      branch ==="ME" ||
       branch === "OTHERS"
     )
   ) {
@@ -151,7 +152,7 @@ const dashboard = async (req, res, next) => {
   const branchName = req.existingUser.branch;
   try {
     books = await Book.find({
-      branch: branchName,
+      
       owner: { $not: { $eq: id } },
     }).populate("owner");
    
@@ -190,6 +191,7 @@ const filterBooks = async (req, res, next) => {
       branchName === "CE" ||
       branchName === "BT" ||
       branchName === "TE" ||
+      branchName ==="ME" ||
       branchName === "OTHERS"
     )
   ) {
