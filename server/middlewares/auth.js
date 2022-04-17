@@ -3,6 +3,7 @@ const HttpError = require("../models/http-error");
 const  dotenv= require("dotenv")
 const path = require("path")
 dotenv.config({path:path.join(__dirname,"../",".env")});
+import { getAuth } from "firebase-admin/auth";
 const auth = (req,res,next)=>{
     if(req.method==="OPTIONS"){
         return next();
@@ -15,8 +16,8 @@ const auth = (req,res,next)=>{
         return next(new HttpError("Authorization failed",402));
       }  else{
      
-            const decodedToken = jwt.verify(token,process.env.JWT_KEY);
-            req.userData = decodedToken.id;
+        const decodedToken = await getAuth().verifyIdToken(token);
+            req.userData = decodedToken.uid;
             next(); 
     }
 }catch(err){
