@@ -1,30 +1,32 @@
-const jwt = require("jsonwebtoken");
-const HttpError = require("../models/http-error");
-const  dotenv= require("dotenv")
-const path = require("path")
-dotenv.config({path:path.join(__dirname,"../",".env")});
-import { getAuth } from "firebase-admin/auth";
-const auth = (req,res,next)=>{
-    if(req.method==="OPTIONS"){
+import HttpError from "../model/http-error.js";
+import {getAuth} from "firebase-admin/auth"
+const authMiddleware = async (req,res,next)=>{
+    if(req.method==="OPTIONS")
+    {
         return next();
-    };
-
+    }
     try{
         const token = req.headers.authorization.split(' ')[1];
+
         if(!token)
-      {
-        return next(new HttpError("Authorization failed",402));
-      }  else{
-     
-        const decodedToken = await getAuth().verifyIdToken(token);
-            req.userData = decodedToken.uid;
-            next(); 
+        {
+          return next(new HttpError("Authorization failed",401));
+        }
+      
+    const decodedToken = await getAuth().verifyIdToken(token);
+   
+    if(!decodedToken)
+    {
+        return next(new HttpError("Authorization failed",401)); 
     }
-}catch(err){
-        return next(new HttpError("Auth failed",402));
-      };
- 
-  
+    req.userId = decodedToken.uid;
+    next();
+    }catch(error)
+    {     
+         const errorMessage = error.message;
+        return next(new HttpError(error.errorInfo.code.substring(5),401));
+    }
+     
 }
 
-module.exports = auth;
+export default authMiddleware;
