@@ -13,8 +13,8 @@ const SignInWithPhone = (props) => {
   const [otp, setOtp] = useState("");
   const [showOtp, setShowOtp] = useState(false);
 
-  const setPhoneHandler = (phoneDetails) => {
-    setPhone(phoneDetails.phone);
+  const setPhoneHandler = (phone) => {
+    setPhone(phone);
     setShowOtp(true);
   };
   const changePhoneHandler = () => {
@@ -45,7 +45,7 @@ const SignInWithPhone = (props) => {
     <>
       {isLoading && <LoadingSpinner />}
       {!showOtp && (
-        <GetPhone submitPhone={setPhoneHandler} enteredPhone={phone} />
+        <GetPhone setPhone={setPhone}submitPhone={setPhoneHandler} enteredPhone={phone} />
       )}
       {showOtp && (
         <GetOtp submitOtp={getOtpHandler} changePhone={changePhoneHandler} />

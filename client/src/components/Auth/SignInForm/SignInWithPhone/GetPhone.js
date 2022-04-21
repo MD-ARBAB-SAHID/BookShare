@@ -1,7 +1,7 @@
 import styles from "./GetPhone.module.css";
 import { useHistory } from "react-router-dom";
 import useInputValidator from "../../../../hooks/auth-form";
-import { useEffect ,useState} from "react";
+import { useEffect, useState } from "react";
 import { auth } from "../../../../firebase-config";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import LoadingSpinner from ".././../../UI/Loading Spinner/LoadingSpinner";
@@ -16,7 +16,7 @@ const GetPhone = (props) => {
     inputChangeHandler: phoneChangeHandler,
     inputBlurHanlder: phoneBlurHandler,
     setInitialValue: phoneInitialValue,
-  } = useInputValidator((input) => input.length >= 10);
+  } = useInputValidator((input) => input && input.length >= 10);
 
   useEffect(() => {
     phoneInitialValue(props.enteredPhone);
@@ -37,8 +37,9 @@ const GetPhone = (props) => {
   };
   const formSubmitHandler = async (event) => {
     event.preventDefault();
-    if (phone.length >= 12) {
+    if (phone && phone.length >= 12) {
       setIsLoading(true);
+      props.setPhone(phone);
       generateRecaptcha();
       let appVerifier = window.recaptchaVerifier;
       try {
@@ -46,13 +47,12 @@ const GetPhone = (props) => {
         window.confirmationResult = data;
         console.log(data);
         setIsLoading(false);
+        props.submitPhone(phone);
       } catch (error) {
         setIsLoading(false);
-        phoneReset();
         console.log(error.message);
       }
     }
-    props.submitPhone(phone);
   };
 
   let formIsInvalid = true;
