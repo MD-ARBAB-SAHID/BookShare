@@ -7,6 +7,10 @@ import Notification from "../../components/Notification/Notification";
 import useHttp from "../../hooks/use-http";
 import LoadingSpinner from "../UI/Loading Spinner/LoadingSpinner";
 import Error from "../UI/Error/Error";
+import { auth } from "../../firebase-config";
+import {
+  signOut,
+} from "firebase/auth"
 const Navbar = () => {
   const [resBar, setResBar] = useState();
   const [showNotification, setShowNotification] = useState(false);
@@ -15,6 +19,7 @@ const Navbar = () => {
   const token = authCtx.token;
   const { isLoading, isError, sendRequest, clearError } = useHttp();
   const logoutHandler = () => {
+    signOut(auth);
     setResBar(false);
     authCtx.logout();
   };
