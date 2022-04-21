@@ -33,11 +33,12 @@ const Dashboard = () => {
 
   return (
     <>
-      {isLoading && <LoadingSpinner />}
-      {!isLoading && isError && (
+      {/* {isLoading && <LoadingSpinner />} */}
+      {/* {!isLoading && isError && (
         <Error errorText={isError} clearError={clearError} />
-      )}
-      {!isLoading && !isError&&<Searchresult bookList={bookData} />}
+      )} */}
+      {/* {!isLoading && !isError&&<Searchresult bookList={bookData} />} */}
+      <div>This is Dashboard</div>
     </>
   );
 };

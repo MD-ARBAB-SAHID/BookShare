@@ -1,56 +1,48 @@
+import styles from "./SignUp.module.css";
 import { useState } from "react";
-import Details from "./Details/Details";
-import Email from "./Email/Email";
-import OTP from "./OTPVerification/OTP";
-import classes from "./SignUp.module.css";
+import SignUpWithEmail from "./SignUpWithEmail/SignUpWithEmail";
+import SignUpWithPhone from "../SignInForm/SignInWithPhone/SignInWithPhone";
+import { FcGoogle } from "react-icons/fc";
+import { FaMobileAlt } from "react-icons/fa";
 
 const SignUp = () => {
-  const [showPage, setShowPage] = useState(() => {
-    const array = [];
-    array.push(true);
-    array.push(false);
-    array.push(false);
-    return array;
-  });
-  const showFirstPage = () => {
-    setShowPage((prevState) => {
-      const array = [];
-      array.push(true);
-      array.push(false);
-      array.push(false);
-      return array;
-    });
+  const [emailSignIn, setEmailSignIn] = useState(true);
+  const [phoneSignIn, setEPhoneSignIn] = useState(false);
+  const [googleSignIn, setGoogleSignIn] = useState(false);
+
+  const useEmailSignIn = () => {
+    setEmailSignIn(true);
+    setEPhoneSignIn(false);
+    setGoogleSignIn(false);
   };
-  const showSecondPage = () => {
-    setShowPage((prevState) => {
-      const array = [];
-      array.push(false);
-      array.push(true);
-      array.push(false);
-      return array;
-    });
-  }
-  const showThirdPage = ()  => {
-    setShowPage((prevState) => {
-      const array = [];
-      array.push(false);
-      array.push(false);
-      array.push(true);
-      return array;
-    });
-  }
+  const usePhoneSignIn = () => {
+    setEmailSignIn(false);
+    setEPhoneSignIn(true);
+    setGoogleSignIn(false);
+  };
+  const useGoogleSignIn = () => {
+    setEmailSignIn(false);
+    setEPhoneSignIn(false);
+    setGoogleSignIn(true);
+  };
   return (
-    <div className={classes.container}>
-      <div className={classes.loginForm}>
-        <div className={classes.form}>
-          <div className={classes.heading}>
-            <div style={{backgroundColor : showPage[0] ? 'white' : ''}}>Email </div>
-            <div style={{backgroundColor : showPage[1] ? 'white' : ''}}>OTP</div>
-            <div style={{backgroundColor : showPage[2] ? 'white' : ''}}>Details</div>
-          </div>
-          { showPage[0] &&  <Email showNextPage={showSecondPage}/>}
-          { showPage[1] && <OTP showNextPage={showThirdPage}/>}
-          { showPage[2] && <Details />}
+    <div className={styles.container}>
+      <div className={styles.form}>
+        <div className={styles.heading}>Sign up</div>
+        {emailSignIn && <SignUpWithEmail />}
+        {phoneSignIn && <SignUpWithPhone />}
+
+        <div className={styles.iconDiv}>
+          {!googleSignIn && (
+            <button onClick={useGoogleSignIn}>
+              <FcGoogle />
+            </button>
+          )}
+          {!phoneSignIn && (
+            <button onClick={usePhoneSignIn}>
+              <FaMobileAlt />
+            </button>
+          )}
         </div>
       </div>
     </div>

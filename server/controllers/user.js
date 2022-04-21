@@ -47,6 +47,7 @@ const signup = async (req, res, next) => {
       branch === "CE" ||
       branch === "BT" ||
       branch === "TE" ||
+      branch === "ME" ||
       branch === "OTHERS"
     )
   ) {

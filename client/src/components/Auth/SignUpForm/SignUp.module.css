@@ -3,31 +3,58 @@
   padding-top: 10vh;
   padding-bottom: 5vh;
   text-align: center;
-  
+  /* background-color: blue; */
 }
 
 .form {
-  background-color: white;
+  /* background-color: rgb(210, 37, 37); */
   width: 40%;
   margin: auto;
-  /* padding: 15px 0; */
+  /* height: 30rem; */
+  padding: 2rem 0 ;
   border-radius: 5px;
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
     rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  text-align: center;
 }
 
-.heading {
-  display: flex;
-  flex-direction: row;
-  cursor: no-drop;
+.form .heading {
+  font-size: 2.5rem;
+  padding: 20px 0;
 }
 
-.heading div {
-  width: 33.33%;
-  font-size: 25px;
-  padding: 15px 0 20px 0;
-  background-color: rgb(214, 214, 194);
-  border-left: 2px solid rgba(0, 0, 0, 0.178);
+.form .button2 {
+  text-align: center;
+}
+.button2 button{
+  width: 60%;  
+  font-size: 1rem;
+  background-color: transparent;
+  margin: auto;
+  padding: .2rem;
+  border-radius: 5px;
+  border: 1px solid black;
+  cursor:grab;
+}
+
+.form .iconDiv {
+  /* background-color: red; */
+}
+
+.form .iconDiv button {
+  font-size: 2rem;
+  background-color: transparent;
+  border: none;
+  padding: .5rem 1rem;
+  cursor: pointer;
+}
+
+.button button:disabled,
+.button button:disabled:hover,
+.button button:disabled:active {
+  color: black;
+  background-color: transparent;
+  cursor: not-allowed;
 }
 
 @media screen and (max-width: 1300px) {
